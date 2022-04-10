@@ -39,10 +39,32 @@ function comecarJogo() {
 
 function darCartas(numero) {
     const areaJogo = document.querySelector(".area-jogo");
+    
+    let primeiraCarta = (Math.floor(Math.random() * 7))+1;
+    console.log(primeiraCarta)
+    let alea = [primeiraCarta,primeiraCarta];
+    lista = numero/2;
+
+    for (let i = 1; i<lista; i++) {
+        alea.push(i+1);
+        alea.push(i+1);
+    }
+    console.log(alea + "\nFim da criação da lista");
+
+    alea = alea.sort(() => Math.random() - 0.5);
+
+    console.log(alea + "\nJá randomizado");
+
+
     document.querySelector(".pagina-inicial").classList.add("escondido");
     document.querySelector(".pagina").classList.remove("escondido");
     
-    for(let i = 0; i < numero; i++) {
-        areaJogo.innerHTML += `<div class="carta"><img src="/Projeto_04_parrotsCardGame/imagens/front.png" alt=""></div>`
+    for(let j = 0; j < numero; j++) {
+        areaJogo.innerHTML += `
+        <div class="carta">
+            <div class="frente face"><img src="/Projeto_04_parrotsCardGame/imagens/front.png"></div>
+            <div class="tras face"><img src="/Projeto_04_parrotsCardGame/imagens/${alea[j]}.gif"></div>
+        </div>
+        `;
     }
 }

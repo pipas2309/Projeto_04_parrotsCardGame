@@ -52,6 +52,7 @@ body {
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
     font-size: 56px;
+    text-align: center;
 }
 
 
@@ -80,16 +81,36 @@ body {
 .carta {
     width: 120px;
     height: 150px;
+    margin: 0 17.5px 35px 17.5px;
+    position: relative;
+}
+
+.face {
+    width: 100%;
+    height: 100%;
     border: 1px solid #99CEA8;
     border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 17.5px 35px 17.5px;
     background-color: #A7E9AF;
+    backface-visibility: hidden;
+    transition: all 0.5s;
+    transform-style: preserve-3d;
+    position: absolute;
 }
 
+.tras {
+    transform: rotateY(180deg);
+}
 
+.carta:hover .tras {
+    transform: rotateY(0deg);
+}
+
+.carta:hover .frente {
+    transform: rotateY(180deg);
+}
 
 /* EFEITOS */
 .escondido {
