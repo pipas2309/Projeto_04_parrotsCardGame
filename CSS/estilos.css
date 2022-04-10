@@ -57,15 +57,36 @@ body {
 
 
 /* CARTAS -- JOGO */
+.pagina {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.area-jogo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+}
+
+.carta img {
+    width: 100px;
+    height: 100px;
+}
+
 .carta {
     width: 120px;
     height: 150px;
-    color: #A7E9AF;
     border: 1px solid #99CEA8;
     border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0 17.5px 35px 17.5px;
+    background-color: #A7E9AF;
 }
 
 
