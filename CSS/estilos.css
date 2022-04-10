@@ -1,0 +1,76 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #EEF9BF;
+}
+
+
+
+/* PAGINAS */
+.pagina-inicial p{
+    font-family: 'Roboto', sans-serif;
+    font-size: 32px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 1s ease-out ;
+}
+
+.pagina-inicial {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.menu {
+    background-color: #c6db69;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 100px;
+    width: 240px;
+    height: 300px;
+    border-radius: 16px;
+    box-shadow: 0 0 23px 2px;
+}
+
+
+
+/* TITULO */
+.titulo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+}
+
+.titulo h1 {
+    color: #75B79E;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 56px;
+}
+
+
+
+/* CARTAS -- JOGO */
+.carta {
+    width: 120px;
+    height: 150px;
+    color: #A7E9AF;
+    border: 1px solid #99CEA8;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+/* EFEITOS */
+.escondido {
+    display: none;
+}
