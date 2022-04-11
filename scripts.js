@@ -202,10 +202,14 @@ function contaJogada() {
 function resetar() {
 
     // Limpando a página de botões da última partida
-    document.querySelector(".voltar-menu").classList.remove("escondido");
-    document.querySelector(".cronometro").classList.remove("iniciado");
-    document.querySelector(".cronometro p").classList.add("escondido");
-    document.querySelector(".cronometro").lastChild.classList.add("escondido");
+
+    setTimeout(function(){
+        document.querySelector(".cronometro").classList.remove("iniciado");
+        document.querySelector(".voltar-menu").classList.remove("escondido");
+        document.querySelector(".cronometro p").classList.add("escondido");
+        document.querySelector(".cronometro").lastChild.classList.add("escondido");
+    },1);
+
     let cards = document.querySelectorAll(".carta");
     for(let i = 0; i < cards.length; i++) {
         cards[i].removeAttribute("onclick");
@@ -299,10 +303,16 @@ function voltarMenu() {
  
 // Função chama o aviso de conquista e destrava o item
 function novaConquista() {
-    document.querySelector(".aviso").classList.add("subindo")
+    
+    setTimeout(function(){
+        setTimeout(function(){
+            document.querySelector(".aviso").classList.add("subindo")
+            },23);
+    },1);
+
     setTimeout(function(){
     document.querySelector(".aviso").classList.remove("subindo")
-    },5000)
+    },3200)
 
     if(flash === 1) {
         document.querySelector(".flash").classList.remove("escondido");
@@ -330,6 +340,7 @@ function visuais () {
     document.querySelector(".pagina-inicial").classList.add("escondido");
 }
 
+// Função para escolher os visuais
 function escolheVisual(x) {
 
     if(x === "sad") {
