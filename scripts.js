@@ -204,7 +204,7 @@ function resetar() {
         cards[i].removeAttribute("onclick");
     }
 
-    alert(`Você venceu, parabéns!\nSeu tempo foi: ${minuto}:${segundo}\nVocê precisou de: ${jogadas} jogadas para vencer!`);
+    alert(`Você venceu, parabéns!\nSeu tempo foi de: ${minuto}:${segundo}\nVocê ganhou em ${jogadas} jogadas!`);
     let recomecar = prompt("Você quer jogar novamente?\nResponda com Sim ou Não!");
 
     if(minuto === 0 && segundo < 3 && flash === 0) {
