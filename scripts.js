@@ -8,6 +8,7 @@ let venceuComQntCartas = [];
 let platinado = 0;
 let facil = 0;
 let flash = 0;
+let visualEscolhido = 0;
 
 // Função do Botão "JOGAR", verifica as entradas e chama a próxima função
 function comecarJogo() {
@@ -80,11 +81,17 @@ function comecarJogo() {
 function darCartas(numero) {
     const areaJogo = document.querySelector(".area-jogo");
     areaJogo.innerHTML = "";
-    let listaImagens = [1,2,3,4,5,6,7];
+    let listaImagens = [1,2,3,4,5,6,7,8,9,10,11];
     let listaCartas = [];
     document.querySelector(".voltar-menu").classList.add("escondido");
 
     listaImagens = listaImagens.sort(() => Math.random() - 0.5);
+
+    console.log(listaImagens + " antes do visual");
+    for (let k = 0; k <listaImagens.length; k++) {
+        listaImagens[k] += visualEscolhido;
+    }
+    console.log(listaImagens + " depois do visual");
 
     for(let i = 0; i < numero/2; i++) {
         listaCartas.push(listaImagens[i]);
@@ -315,4 +322,36 @@ function novaConquista() {
 function conquistas () {
     document.querySelector(".conquistas").classList.remove("escondido");
     document.querySelector(".pagina-inicial").classList.add("escondido");
+}
+
+// Função entra no menu visuais
+function visuais () {
+    document.querySelector(".visuais").classList.remove("escondido");
+    document.querySelector(".pagina-inicial").classList.add("escondido");
+}
+
+function escolheVisual(x) {
+
+    if(x === "sad") {
+
+        if(visualEscolhido === 11){
+            document.querySelector(".pagina-inicial").classList.remove("escondido");
+            document.querySelector(".visuais").classList.add("escondido");
+            return;
+        }
+        visualEscolhido = 11;
+
+        document.querySelector(".chuva").classList.remove("escondido");
+        document.querySelector(".pagina-inicial").classList.remove("escondido");
+        document.querySelector(".visuais").classList.add("escondido");
+
+    } else if (x === "parrot") {
+
+        visualEscolhido = 0;
+
+        document.querySelector(".chuva").classList.add("escondido")
+        
+        document.querySelector(".pagina-inicial").classList.remove("escondido");
+        document.querySelector(".visuais").classList.add("escondido");
+    }
 }

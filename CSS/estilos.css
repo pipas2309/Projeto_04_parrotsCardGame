@@ -218,6 +218,38 @@ body {
 
 
 
+/* VISUAIS */
+.visuais img{
+    width: 200px;
+    height: auto;
+    background-color: lightgray;
+    border-radius: 15%;
+    box-shadow: 4px 4px darkblue;
+}
+
+.visuais {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.visuais div {
+    margin: 0 21px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.visuais p {
+    margin-top: 10px;
+    text-shadow: 1px 1px red;
+}
+
 /* EFEITOS */
 
 
@@ -250,6 +282,11 @@ body {
 
 .subindo {
     bottom: 0;
+}
+
+.chuva {
+    opacity: 0.5;
+    pointer-events: none;
 }
 
 @media (max-width:540px) {
