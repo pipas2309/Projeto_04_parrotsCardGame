@@ -14,7 +14,6 @@ body {
     font-size: 32px;
     font-weight: 500;
     cursor: pointer;
-    transition: all 1s ease-out ;
 }
 
 .pagina-inicial {
@@ -82,7 +81,11 @@ body {
     width: 120px;
     height: 150px;
     margin: 0 17.5px 35px 17.5px;
+    transform-style: preserve-3d;
+    transform-origin: center right;
+    transition: all 0.5s;
     position: relative;
+    cursor: pointer;
 }
 
 .face {
@@ -95,8 +98,6 @@ body {
     align-items: center;
     background-color: #A7E9AF;
     backface-visibility: hidden;
-    transition: all 0.5s;
-    transform-style: preserve-3d;
     position: absolute;
 }
 
@@ -104,15 +105,21 @@ body {
     transform: rotateY(180deg);
 }
 
-.carta:hover .tras {
-    transform: rotateY(0deg);
-}
-
-.carta:hover .frente {
-    transform: rotateY(180deg);
+.frente {
+    
 }
 
 /* EFEITOS */
 .escondido {
     display: none;
+}
+
+.virada {
+    transform: translateX(-100%) rotateY(180deg);
+    cursor:default;
+}
+
+.fechada {
+    transform: translateX(-100%) rotateY(180deg);
+    cursor:default;
 }
