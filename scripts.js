@@ -187,12 +187,22 @@ function contaJogada() {
     
     
     if(document.querySelectorAll(".fechada").length === document.querySelectorAll(".carta").length) {
-        return setTimeout(resetar, 100);
+        return setTimeout(resetar, 1000);
     }
 }
 
 // Função serve para avisar da vitória e pontuação e direcionar o jogador para o que fazer em seguida.
 function resetar() {
+
+    // Limpando a página de botões da última partida
+    document.querySelector(".voltar-menu").classList.remove("escondido");
+    document.querySelector(".cronometro").classList.remove("iniciado");
+    document.querySelector(".cronometro p").classList.add("escondido");
+    document.querySelector(".cronometro").lastChild.classList.add("escondido");
+    let cards = document.querySelectorAll(".carta");
+    for(let i = 0; i < cards.length; i++) {
+        cards[i].removeAttribute("onclick");
+    }
 
     alert(`Você venceu, parabéns!\nSeu tempo foi: ${minuto}:${segundo}\nVocê precisou de: ${jogadas} jogadas para vencer!`);
     let recomecar = prompt("Você quer jogar novamente?\nResponda com Sim ou Não!");
@@ -202,32 +212,38 @@ function resetar() {
         novaConquista();
     }
 
-    while(recomecar === null || recomecar === "") {
-        recomecar = prompt("Não entendi =|\nVocê quer jogar novamente?\nResponda com Sim ou Não!");
+    while(recomecar === null || recomecar === ""){
+        recomecar = prompt("Não entendi =|\nVocê vai jogar de novo?\nResponda com Sim ou Não!");
+    }
+    
+    
+    while(recomecar !== "Sim" && recomecar !== "Não") {
+        recomecar = prompt("Não entendi =|\nVocê vai jogar de novo?\nResponda com Sim ou Não!");
     }
 
-    let cards = document.querySelectorAll(".carta");
-    for(let i = 0; i < cards.length; i++) {
-        cards[i].removeAttribute("onclick");
-    }
-
-    if(recomecar.toLowerCase() === "sim") {        
+    if(recomecar === "Sim") {        
         apagarCodigo();
         return comecarJogo();
-    }
+    } else if(recomecar === "Não") {
 
-    if(recomecar.toLowerCase() === "não" || recomecar.toLowerCase() === "nao") {
-        const menu = prompt("Gostaria de voltar ao Menu?\nResponda com Sim ou Não!");
-        if(menu.toLowerCase() === "sim") {
+        let segundaOpcao = prompt("Gostaria de voltar ao Menu?\nResponda com Sim ou Não!");
+
+        while(segundaOpcao === null || segundaOpcao === ""){
+            segundaOpcao = prompt("Não entendi =|\nGostaria de voltar ao Menu?\nResponda com Sim ou Não!");
+        }
+    
+        while(segundaOpcao !== "Sim" && segundaOpcao !== "Não") {
+            segundaOpcao = prompt("Não entendi =|\nGostaria de voltar ao Menu?\nResponda com Sim ou Não!");
+        }
+
+        if(segundaOpcao === "Sim") {
             document.querySelector(".pagina").classList.add("escondido");
             document.querySelector(".pagina-inicial").classList.remove("escondido")
             return apagarCodigo();
-        } 
+        } else if(segundaOpcao === "Não") {
+            return;
+        }
     }
-    document.querySelector(".voltar-menu").classList.remove("escondido");
-    document.querySelector(".cronometro").classList.remove("iniciado");
-    document.querySelector(".cronometro p").classList.add("escondido");
-    document.querySelector(".cronometro").lastChild.classList.add("escondido");
 }
 
 // Função apaga todo o histórico do último jogo, garantindo que uma nova partida possa ser feita

@@ -244,3 +244,18 @@ body {
     bottom: 0;
 }
 
+@media (max-width:540px) {
+
+.area-jogo {
+    flex-direction: column;
+}
+
+.cronometro {
+    margin-bottom:50px ;
+}
+
+.voltar-menu {
+    margin: 10px 0 50px 0;
+}
+
+}
