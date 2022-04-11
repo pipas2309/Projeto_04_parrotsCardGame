@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+ion-icon {
+    transition: all 1s ease-in-out;
+}
+
 body {
     background-color: #EEF9BF;
 }
@@ -105,9 +109,42 @@ body {
     transform: rotateY(180deg);
 }
 
-.frente {
-    
+
+
+/* CRONOMETRO E CONTADOR */
+.cronometro {
+    width: 40px;
+    height: 40px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 23px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px 2px grey;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    text-align: center;
+    transition: all 1s ease-in-out;
+    font-size: 32px;
 }
+
+.cronometro p {
+    font-size: 19px;
+    margin-right: 10px;
+}
+
+
+.iniciado {
+    width: 200px;
+    height: 40px;
+    color: #000000;
+    background-color: aquamarine;
+    box-shadow: 2px 2px 12px 3px green;
+    justify-content: flex-start;
+}
+
+
 
 /* EFEITOS */
 .escondido {

@@ -1,38 +1,65 @@
+//Variáveis globais
+let jogadas = 0;
+let segundo = 0;
+let minuto = 0;
+let partidas = 0;
+let intervalo;
+const venceuComQntCartas = [];
+
 // Função do Botão "JOGAR", verifica as entradas e chama a próxima função
 function comecarJogo() {
-    const qntCartas = Number(prompt("Com quantas cartas você quer jogar?\nDe 4 à 14"));
+    let qntCartas = prompt("Com quantas cartas você quer jogar?\nDe 4 à 14");
     
+    //Verifica se há entreda
+    if(qntCartas === '' || qntCartas === null || qntCartas === undefined) {
+        alert("Insira um VALOR válido e tente novamente!");
+        return comecarJogo();
+    }
+
+    qntCartas = Number(qntCartas);
+
+    //Verifica se é um numero
+    if(isNaN(qntCartas)) {
+        alert("Insira um NÚMERO e tente novamente");
+        return comecarJogo();
+    }
+
+    //Verifica se é interio o número digitado
     while(Number.isInteger(qntCartas)) {
 
-        if(isNaN(qntCartas)) {
-            alert("Insira um valor numérico INTEIRO de 4 à 14!");
-            return ;
-        }
-
+        //Verifica se o número está entre 2 e 14
         if(qntCartas > 14 || qntCartas < 2) {
             alert("Quantidade inválida, tente novamente");
-            return ;
+            return comecarJogo();
         }
 
+        //Verifica se é impar acima de 7
         if(qntCartas%2 !== 0 && qntCartas > 7) {
             alert ("Quantidade inválida, tente novamente");
-            return ;
+            return comecarJogo();
         }
 
+        //Verifica se é 2
         if(qntCartas === 2) {
             alert("Você destravou o modo 'Para iniciantes'");
             return darCartas(qntCartas);
         }
 
+        //Verifica se é par, corrige se impar e permitido, e chama a próxima função 
         if(qntCartas%2 !== 0) {
             const erroCartas = prompt(`Você quis dizer: ${qntCartas} pares de cartas, ou seja, ${qntCartas * 2}?\nResponda com SIM ou NÃO`);
+
+            if(erroCartas === null || erroCartas === '') {
+                alert("Insira um VALOR válido e tente novamente!");
+                return comecarJogo();
+            }
 
             if(erroCartas.toLowerCase() === "sim") {
                 alert(`Você ira jogar com ${qntCartas * 2} cartas, bom jogo.`);
                 return darCartas(qntCartas * 2);
             } else { 
                 alert ("Não foi possível entender como quer jogar, começe novamente");
-                return ;
+                return comecarJogo();
             }
         } else {
             alert (`Você ira jogar com ${qntCartas} cartas, bom jogo`);
@@ -41,12 +68,13 @@ function comecarJogo() {
 
     }
     alert("Insira um valor numérico INTEIRO de 4 à 14!");
-    return ;
+    return comecarJogo();
 }
 
 // Função que cria a lista de cartas aleatóriamente e distribui na mesa
 function darCartas(numero) {
     const areaJogo = document.querySelector(".area-jogo");
+    areaJogo.innerHTML = "";
     let listaImagens = [1,2,3,4,5,6,7];
     let listaCartas = [];
     console.log(listaImagens + "\nLista com numero de imagens disponíveis\n")
@@ -80,7 +108,16 @@ function darCartas(numero) {
 function virar(elemento) {
 
     if(document.querySelectorAll(".virada").length === 2) {
-        return
+        return;
+    }
+
+    if(document.querySelector(".virada") === elemento) {
+        return;
+    }
+
+    if(document.querySelector(".iniciado") === null) {
+        segundo = 0;
+        cronometro();
     }
 
     let primeiraCarta;
@@ -89,27 +126,114 @@ function virar(elemento) {
     if(document.querySelector(".virada")) {
         primeiraCarta = document.querySelector(".virada");
         segundaCarta = elemento;
+        elemento.classList.add("virada");
     } else {
         primeiraCarta = elemento;
         elemento.classList.add("virada");
-        return;
+        
+        return contaJogada();
     }
-
-    elemento.classList.add("virada");
     
     if(primeiraCarta.querySelector(".tras").innerHTML == segundaCarta.querySelector(".tras").innerHTML) {
         primeiraCarta.classList.add("fechada");
         primeiraCarta.classList.remove("virada");
         segundaCarta.classList.add("fechada");
         segundaCarta.classList.remove("virada");
-        return
+        
+        return contaJogada(1);
     }
-    setTimeout (desvirar, 800);
-    return;
+    setTimeout (desvirar, 1000);
+    return contaJogada();
 }
 
 // Função chamada pela "virar()" para, caso diferentes, desvirá-las 
 function desvirar(carta1, carta2) {
     document.querySelector(".virada").classList.remove("virada");
     document.querySelector(".virada").classList.remove("virada");
+}
+
+// Função que ativa o cronometro
+function cronometro() {
+    document.querySelector(".cronometro").classList.add("iniciado");
+
+    if(venceuComQntCartas.length !== 0) {
+        clearInterval(intervalo);
+    }
+
+    setTimeout(function() {document.querySelector(".cronometro p").classList.remove("escondido");
+    document.querySelector(".cronometro").lastChild.classList.remove("escondido");}, 1000)
+    intervalo = setInterval(tempo, 1000);
+
+    function tempo() {
+        
+        if((segundo += 1) === 60) {
+            segundo = 0;
+            minuto++;
+        }
+
+        document.querySelector(".cronometro p").innerHTML = `${minuto}:${segundo}`;
+    }
+
+}
+
+// Contas as jogadas e chama o fim do jogo quando acaba
+function contaJogada() {
+
+
+        jogadas++;
+        document.querySelector(".cronometro").lastChild.innerHTML = ` | Jogadas: ${jogadas}`;
+    
+    
+    if(document.querySelectorAll(".fechada").length === document.querySelectorAll(".carta").length) {
+        return setTimeout(resetar, 100);
+    }
+}
+
+
+function resetar() {
+
+    alert(`Você venceu, parabéns!\nSeu tempo foi: ${minuto}:${segundo}\nVocê precisou de: ${jogadas} jogadas para vencer!`);
+    let recomecar = prompt("Você quer jogar novamente?\nResponda com Sim ou Não!");
+
+    while(recomecar === null || recomecar === "") {
+        recomecar = prompt("Não entendi =|\nVocê quer jogar novamente?\nResponda com Sim ou Não!");
+    }
+
+    if(recomecar.toLowerCase() === "sim") {        
+        apagarCodigo();
+        return comecarJogo();
+    }
+
+    if(recomecar.toLowerCase() === "não" || recomecar.toLowerCase() === "nao") {
+        const menu = prompt("Gostaria de voltar ao Menu?\nResponda com Sim ou Não!");
+        if(menu.toLowerCase() === "sim") {
+            document.querySelector(".pagina").classList.add("escondido");
+            document.querySelector(".pagina-inicial").classList.remove("escondido")
+            return apagarCodigo();
+        } else {
+            
+        }
+    }
+}
+
+function apagarCodigo(x) {
+       
+    partidas++;
+    venceuComQntCartas.push(document.querySelectorAll(".fechadas").length)
+
+    jogadas = 0;
+    segundo = 0;
+    minuto = 0;
+
+    let numCartas = document.querySelectorAll(".fechada").length;
+
+    for(let i = 0; i < numCartas; i++) {
+        document.querySelector(".fechada").classList.remove("fechada");
+    }
+
+    document.querySelector(".cronometro").classList.remove("iniciado");
+    document.querySelector(".cronometro p").classList.add("escondido");
+    document.querySelector(".cronometro").lastChild.classList.add("escondido");
+    
+    
 }
