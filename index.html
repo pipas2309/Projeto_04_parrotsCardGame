@@ -16,7 +16,7 @@
         <div class="titulo"><h1>PARROT CARD GAME</h1></div>
         <div class="menu">
             <div class="jogar" onclick="comecarJogo()"><p>JOGAR</p></div>
-            <div class="conquistas" onclick="conquistas()"><p>CONQUISTAS</p></div>
+            <div class="Botao-conquistas" onclick="conquistas()"><p>CONQUISTAS</p></div>
             <div class="visuais" onclick="visuais()"><p>VISUAIS</p></div>
         </div>
     </div>
@@ -24,7 +24,16 @@
         <div class="titulo"><h1>PARROT CARD GAME</h1></div>
         <div class="area-jogo"></div>
         <div class="cronometro"><ion-icon name="stopwatch-outline"></ion-icon><p class="escondido"></p><p class="escondido"></p></div>
+        <div class="voltar-menu escondido" onclick="voltarMenu()"><p>MENU</p></div>
     </div>
+    <div class="conquistas escondido">
+        <div class="conquista facil escondido"><img src="/Projeto_04_parrotsCardGame/imagens/kiko.png"><span>Tabuleiro para principiantes</span></div>
+        <div class="conquista platinado escondido"><img src="/Projeto_04_parrotsCardGame/imagens/rei.jpg"><span>Platinado</span></div>
+        <div class="conquista flash escondido"><img src="/Projeto_04_parrotsCardGame/imagens/flash.jpg"><span>Eu vou... Venci!</span></div>
+        <div class="voltar-menu" onclick="voltarMenu()"><p>MENU</p></div>
+    </div>
+    <div class="visuais"></div>
+    <div class="aviso"><p>CONQUISTA DESBLOQUEADA</p></div>
 
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="/Projeto_04_parrotsCardGame/scripts.js"></script>

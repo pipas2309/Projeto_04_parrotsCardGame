@@ -146,10 +146,72 @@ body {
 
 
 
-/* EFEITOS */
-.escondido {
-    display: none;
+/* CONQUISTAS */
+.conquistas {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 32px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
 }
+
+.conquista img {
+    width: 140px;
+    height: auto;
+    margin: auto 32px auto 10px;
+    border-radius: 15px;
+}
+
+.segredo {
+    display: flex;
+}
+
+.conquista {
+    width: 420px;
+    height: 150px;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    text-align: start;
+    background-color: #d5eb7e;
+    border-radius: 23px;
+    border: 1px solid #a9c432;
+    box-shadow: 0 0 10px 1px #cfe66a;
+    margin: 50px 0;
+}
+
+
+
+.aviso {
+    position: fixed;
+    bottom: -70px;
+    margin-left: calc(50% - 100px);
+    height: 70px;
+    width: 200px;
+    background-color: rgb(163, 68, 163);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: aliceblue;
+    text-align: center;
+    font-size: 23px;
+    border-radius: 10px 10px 0 0;
+    border: 3px solid rgb(92, 0, 92);
+    border-bottom: 0px;
+    box-shadow: 0 0 10px 1px black;
+    transition: all 1.5s ease-in-out;
+}
+
+
+
+/* EFEITOS */
+
 
 .virada {
     transform: translateX(-100%) rotateY(180deg);
@@ -160,3 +222,25 @@ body {
     transform: translateX(-100%) rotateY(180deg);
     cursor:default;
 }
+
+.voltar-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    width: 100px;
+    height: 50px;
+    border-radius: 5px;
+    background-color: #c6db69;
+    box-shadow: 0 0 5px 1px;
+    cursor: pointer;
+}
+
+.escondido {
+    display: none;
+}
+
+.subindo {
+    bottom: 0;
+}
+

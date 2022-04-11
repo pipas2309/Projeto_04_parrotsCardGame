@@ -4,7 +4,10 @@ let segundo = 0;
 let minuto = 0;
 let partidas = 0;
 let intervalo;
-const venceuComQntCartas = [];
+let venceuComQntCartas = [];
+let platinado = 0;
+let facil = 0;
+let flash = 0;
 
 // Função do Botão "JOGAR", verifica as entradas e chama a próxima função
 function comecarJogo() {
@@ -40,8 +43,10 @@ function comecarJogo() {
         }
 
         //Verifica se é 2
-        if(qntCartas === 2) {
-            alert("Você destravou o modo 'Para iniciantes'");
+        if(qntCartas === 2 && facil === 0) {
+            alert("'Para iniciantes'");
+            novaConquista();
+            facil = 1;
             return darCartas(qntCartas);
         }
 
@@ -77,19 +82,16 @@ function darCartas(numero) {
     areaJogo.innerHTML = "";
     let listaImagens = [1,2,3,4,5,6,7];
     let listaCartas = [];
-    console.log(listaImagens + "\nLista com numero de imagens disponíveis\n")
+    document.querySelector(".voltar-menu").classList.add("escondido");
 
     listaImagens = listaImagens.sort(() => Math.random() - 0.5);
-    console.log(listaImagens + "\nLista RANDOMIZADA\n");
 
     for(let i = 0; i < numero/2; i++) {
         listaCartas.push(listaImagens[i]);
     }
-    console.log(listaCartas + "\nLista de cartas para esse jogo, já randomizada\n");
     
     listaCartas = listaCartas.concat(listaCartas);
     listaCartas = listaCartas.sort(() => Math.random() - 0.5);
-    console.log(listaCartas + "\nLista de cartas Dobrada e randomizada\n");
 
     document.querySelector(".pagina-inicial").classList.add("escondido");
     document.querySelector(".pagina").classList.remove("escondido");
@@ -189,14 +191,24 @@ function contaJogada() {
     }
 }
 
-
+// Função serve para avisar da vitória e pontuação e direcionar o jogador para o que fazer em seguida.
 function resetar() {
 
     alert(`Você venceu, parabéns!\nSeu tempo foi: ${minuto}:${segundo}\nVocê precisou de: ${jogadas} jogadas para vencer!`);
     let recomecar = prompt("Você quer jogar novamente?\nResponda com Sim ou Não!");
 
+    if(minuto === 0 && segundo < 3 && flash === 0) {
+        flash = 1;
+        novaConquista();
+    }
+
     while(recomecar === null || recomecar === "") {
         recomecar = prompt("Não entendi =|\nVocê quer jogar novamente?\nResponda com Sim ou Não!");
+    }
+
+    let cards = document.querySelectorAll(".carta");
+    for(let i = 0; i < cards.length; i++) {
+        cards[i].removeAttribute("onclick");
     }
 
     if(recomecar.toLowerCase() === "sim") {        
@@ -210,22 +222,33 @@ function resetar() {
             document.querySelector(".pagina").classList.add("escondido");
             document.querySelector(".pagina-inicial").classList.remove("escondido")
             return apagarCodigo();
-        } else {
-            
-        }
+        } 
     }
+    document.querySelector(".voltar-menu").classList.remove("escondido");
+    document.querySelector(".cronometro").classList.remove("iniciado");
+    document.querySelector(".cronometro p").classList.add("escondido");
+    document.querySelector(".cronometro").lastChild.classList.add("escondido");
 }
 
-function apagarCodigo(x) {
-       
-    partidas++;
-    venceuComQntCartas.push(document.querySelectorAll(".fechadas").length)
+// Função apaga todo o histórico do último jogo, garantindo que uma nova partida possa ser feita
+function apagarCodigo() {
 
+    partidas++;
     jogadas = 0;
     segundo = 0;
     minuto = 0;
 
+    let teste = 0;
     let numCartas = document.querySelectorAll(".fechada").length;
+    venceuComQntCartas.push(numCartas)
+
+    for(let j = 0; j < venceuComQntCartas.length; j++) {
+        teste += venceuComQntCartas[j];
+        if(teste > 42 && platinado === 0) {
+            platinado = 1;
+            novaConquista();
+        }
+    }
 
     for(let i = 0; i < numCartas; i++) {
         document.querySelector(".fechada").classList.remove("fechada");
@@ -236,4 +259,44 @@ function apagarCodigo(x) {
     document.querySelector(".cronometro").lastChild.classList.add("escondido");
     
     
+}
+
+//Em implementação
+function visuais() {
+    alert("Virá na nova expansão: Jogo da Memória - Memes anos 90 ");
+}
+
+// Função permite zerar o game e voltar ao menu
+function voltarMenu() {
+    document.querySelector(".pagina").classList.add("escondido");
+    document.querySelector(".pagina-inicial").classList.remove("escondido");
+    document.querySelector(".conquistas").classList.add("escondido");
+    apagarCodigo();
+}
+ 
+// Função chama o aviso de conquista e destrava o item
+function novaConquista() {
+    document.querySelector(".aviso").classList.add("subindo")
+    setTimeout(function(){
+    document.querySelector(".aviso").classList.remove("subindo")
+    },5000)
+
+    if(flash === 1) {
+        document.querySelector(".flash").classList.remove("escondido");
+        document.querySelector(".flash").classList.add("segredo");
+    }
+    if(facil === 1) {
+        document.querySelector(".facil").classList.remove("escondido");
+        document.querySelector(".facil").classList.add("segredo");
+    }
+    if(platinado === 1) {
+        document.querySelector(".platinado").classList.remove("escondido");
+        document.querySelector(".platinado").classList.add("segredo");
+    }
+}
+
+// Função entra no menu conquistas
+function conquistas () {
+    document.querySelector(".conquistas").classList.remove("escondido");
+    document.querySelector(".pagina-inicial").classList.add("escondido");
 }
