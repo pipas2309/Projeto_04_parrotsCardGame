@@ -12,21 +12,24 @@ let visualEscolhido = 0;
 
 // Função do Botão "JOGAR", verifica as entradas e chama a próxima função
 function comecarJogo() {
-    let qntCartas = prompt("Com quantas cartas você quer jogar?\nDe 4 à 14");
+
+    let qntCartas = entradaValida("New Game");
+
+    //let qntCartas = prompt("Com quantas cartas você quer jogar?\nDe 4 à 14");
     
-    //Verifica se há entreda
-    if(qntCartas === '' || qntCartas === null || qntCartas === undefined) {
-        alert("Insira um VALOR válido e tente novamente!");
-        return comecarJogo();
-    }
+    // //Verifica se há entreda
+    // if(qntCartas === '' || qntCartas === null || qntCartas === undefined) {
+    //     alert("Insira um VALOR válido e tente novamente!");
+    //     return comecarJogo();
+    // }
 
-    qntCartas = Number(qntCartas);
+    // qntCartas = Number(qntCartas);
 
-    //Verifica se é um numero
-    if(isNaN(qntCartas)) {
-        alert("Insira um NÚMERO e tente novamente");
-        return comecarJogo();
-    }
+    // //Verifica se é um numero
+    // if(isNaN(qntCartas)) {
+    //     alert("Insira um NÚMERO e tente novamente");
+    //     return comecarJogo();
+    // }
 
     //Verifica se é interio o número digitado
     while(Number.isInteger(qntCartas)) {
@@ -202,7 +205,6 @@ function contaJogada() {
 function resetar() {
 
     // Limpando a página de botões da última partida
-
     setTimeout(function(){
         document.querySelector(".cronometro").classList.remove("iniciado");
         document.querySelector(".voltar-menu").classList.remove("escondido");
@@ -216,45 +218,35 @@ function resetar() {
     }
 
     alert(`Você venceu, parabéns!\nSeu tempo foi de: ${minuto}:${segundo}\nVocê ganhou em ${jogadas} jogadas!`);
-    let recomecar = prompt("Você quer jogar novamente?\nResponda com Sim ou Não!");
 
     if(minuto === 0 && segundo < 3 && flash === 0) {
         flash = 1;
         novaConquista();
     }
 
-    while(recomecar === null || recomecar === ""){
-        recomecar = prompt("Não entendi =|\nVocê vai jogar de novo?\nResponda com Sim ou Não!");
-    }
-    
-    
-    while(recomecar !== "Sim" && recomecar !== "Não") {
-        recomecar = prompt("Não entendi =|\nVocê vai jogar de novo?\nResponda com Sim ou Não!");
-    }
+    let recomecar = entradaValida(); 
 
-    if(recomecar === "Sim") {        
+    if(recomecar === "sim") {        
         apagarCodigo();
         return comecarJogo();
-    } else if(recomecar === "Não") {
+    } else return;
+}
 
-        let segundaOpcao = prompt("Gostaria de voltar ao Menu?\nResponda com Sim ou Não!");
+// Função entrada válida
+function entradaValida(opcao) {
+    let entrada = "";
 
-        while(segundaOpcao === null || segundaOpcao === ""){
-            segundaOpcao = prompt("Não entendi =|\nGostaria de voltar ao Menu?\nResponda com Sim ou Não!");
+    if(opcao === "New Game") {
+        while(!entrada || isNaN(entrada)) {
+            entrada = prompt("Para começar um novo jogo diga:\nCom quantas cartasquer jogar?\nNÚMERO DE 4 À 14!");
         }
-    
-        while(segundaOpcao !== "Sim" && segundaOpcao !== "Não") {
-            segundaOpcao = prompt("Não entendi =|\nGostaria de voltar ao Menu?\nResponda com Sim ou Não!");
-        }
-
-        if(segundaOpcao === "Sim") {
-            document.querySelector(".pagina").classList.add("escondido");
-            document.querySelector(".pagina-inicial").classList.remove("escondido")
-            return apagarCodigo();
-        } else if(segundaOpcao === "Não") {
-            return;
-        }
+        return Number(entrada);
     }
+
+    while(!entrada || (entrada.toLowerCase() !== "sim" && entrada.toLowerCase() !== "não" && entrada.toLowerCase() !== "nao")) {
+        entrada = prompt("Gostaria de jogar novamente?\nResponda com Sim ou Não!");
+    } 
+    return entrada;
 }
 
 // Função apaga todo o histórico do último jogo, garantindo que uma nova partida possa ser feita
